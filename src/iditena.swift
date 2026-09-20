@@ -30,6 +30,7 @@ public enum HTTPMethod: String {
 
 public class Iditena{
     private let api = "https://iditena.org/data"
+    private let api2 = "https://iditena.org/api"
     private var headers: [String: String]
     
     public init() {
@@ -61,7 +62,20 @@ public class Iditena{
         return try JSONSerialization.jsonObject(with: data)
     }
 
+    public func getDistrictVisitors() async throws -> Any {
+        return try await fetchJSON(from: "\(api2)/district-visitors")
+    }
+    
+    public func getDistrictResults(district: Int) async throws -> Any {
+        return try await fetchJSON(from: "\(api2)/results?district=\(district)")
+    }
+
+    public func getUIKIndex() async throws -> Any {
+        return try await fetchJSON(from: "\(api)/uik/index.json")
+    }
+    
     public func getFinderIndex() async throws -> Any {
         return try await fetchJSON(from: "\(api)/finder-index.json")
     }
+    
 }
